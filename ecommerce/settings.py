@@ -28,6 +28,11 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'mustaqeem.herokuapp.com']
 
+## Cart SESSION KEY 
+SESSION_COOKIE_AGE = 865000
+CART_SESSION_ID = 'Cart'
+
+
 
 # Application definition
 
@@ -38,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'
+    'store',
+    'Cart',
+    'order'
 ]
 
 MIDDLEWARE = [

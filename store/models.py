@@ -38,6 +38,14 @@ class Shop(models.Model):
     def __str__(self):
         return self.title
 
+class Slider(models.Model):
+    title = models.CharField(max_length=120)
+    img = models.ImageField(upload_to="images/")
+
+    def __str__(self):
+        return self.title
+
+
 
 class Product(models.Model):
     title = models.CharField(max_length=120)
@@ -55,3 +63,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Currency(models.Model):
+    currency_name = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.currency_name
