@@ -34,6 +34,7 @@ urlpatterns = [
     ## Path for Store App ##
 
     path('', views.home, name="home"),
+    path('shops/', views.shop_page, name="shop_page"),
 
 
     url(r'^media/(?P<path>.*)$', serve,{'document_root':settings.MEDIA_ROOT}), 
