@@ -4,14 +4,16 @@ from django.db import models
 
 
 class Brand(models.Model):
-    title = models.CharField(max_length=120)
+    brand_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     img = models.ImageField(upload_to="images/")
 
     def __str__(self):
         return self.title
 
 class Category(models.Model):
-    title = models.CharField(max_length=120)
+    cat_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     img = models.ImageField(upload_to="images/")
 
 
@@ -21,7 +23,8 @@ class Category(models.Model):
 
 
 class SubCategory(models.Model):
-    title = models.CharField(max_length=120)
+    sub_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     parent_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
 
 
@@ -32,21 +35,24 @@ class SubCategory(models.Model):
 
 
 class Shop(models.Model):
-    title = models.CharField(max_length=120)
+    shop_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     img = models.ImageField(upload_to="images/")
 
     def __str__(self):
         return self.title
 
 class Slider(models.Model):
-    title = models.CharField(max_length=120)
+    slider_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     img = models.ImageField(upload_to="images/")
 
     def __str__(self):
         return self.title
 
 class Campaign(models.Model):
-    title = models.CharField(max_length=120)
+    campaign_slug = models.SlugField(unique=True, null=True, blank=True)
+    title = models.CharField(max_length=120, unique=True)
     img = models.ImageField(upload_to="images/")
 
 
@@ -54,7 +60,8 @@ class Campaign(models.Model):
         return self.title
 
 class Offer(models.Model):
-    offer_title = models.CharField(max_length=120)
+    offer_slug = models.SlugField(unique=True, null=True, blank=True)
+    offer_title = models.CharField(max_length=120, unique=True)
     offer_img = models.ImageField(upload_to="images/")
 
 
@@ -63,6 +70,7 @@ class Offer(models.Model):
 
 
 class Product(models.Model):
+    product_slug = models.SlugField(null=True, blank=True)
     title = models.CharField(max_length=120)
     img = models.ImageField(upload_to="images/")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
@@ -83,7 +91,7 @@ class Product(models.Model):
 
 
 class Currency(models.Model):
-    currency_name = models.CharField(max_length=120)
+    currency_name = models.CharField(max_length=120, unique=True)
 
     def __str__(self):
         return self.currency_name
