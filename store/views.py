@@ -1,11 +1,12 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render, HttpResponse
 
 
 def home(request):
-	return render(request, 'home.html')
+    try:
+        return render(request, 'home.html')
+    except:
+        return HttpResponse("404 Not found")
 
 
 def shop_page(request):
-	return render(request, 'shop.html')
+    return render(request, 'shop.html')
