@@ -34,7 +34,7 @@ urlpatterns = [
 
     ## Path for Store App ##
 
-    path('', views.home, name="home"),
+    path('', include("store.urls")),
     path('shops/', views.shop_page, name="shop_page"),
 
 
