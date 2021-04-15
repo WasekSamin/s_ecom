@@ -1,6 +1,291 @@
-{% block script %}
+{% extends "store/base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
+<!-- Jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+
+<!-- Flicker slider css -->
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+<!-- Flicker slider js -->
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js" defer></script>
+
+<!-- custom js -->
+<script src={% static 'js/home.js' %} defer></script>
+
+<div class="container my-4">
+    <!-- Services starts -->
+    <div class="card p-3">
+        <div class="services">
+            <div class="service">
+                <span class="iconify" data-icon="carbon:delivery-truck" data-inline="false"></span>
+                <p>Fastest Shipping</p>
+                <small>For all orders</small>
+            </div>
+            <div class="service">
+                <span class="iconify" data-icon="si-glyph:arrow-reload" data-inline="false"></span>
+                <p>100% Money back guarantee</p>
+                <small>30 Days money return</small>
+            </div>
+            <div class="service">
+                <span class="iconify" data-icon="simple-line-icons:support" data-inline="false"></span>
+                <p>Support 24/7</p>
+                <small>Hotline: 09613600900</small>
+            </div>
+            <div class="service">
+                <span class="iconify" data-icon="fluent:payment-28-regular" data-inline="false"></span>
+                <p>Safe Payment</p>
+                <small>Protect online Payment</small>
+            </div>
+        </div>
+    </div>
+    <!-- Services ends -->
+
+    <!-- Local grocerys starts -->
+    {% if local_grocery_images %}
+    <div class="row g-0 local__grocery my-5">
+        {% for lgi in local_grocery_images %}
+        <div class="col-md-6">
+            <a href="#" class="d-block mb-3">
+                <img src="{{ lgi.image.url }}" class="img-fluid lazyloaded">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Local grocerys ends -->
+
+    <!-- New arrival starts -->
+    <div class="new__arrival my-5">
+        <div class="am-sec-title mb-4">
+            <h2 class="text-center border-bottom pb-4 h4">
+                <span class="base-border">New Arrivals Of This Month</span>
+            </h2>
+        </div>
+
+        <div class="row">
+            <div class="col-xxl-3 col-md-6 order-2 order-xxl-0 mt-3 mt-xxl-0">
+                <div class="card cat__card px-4 py-5 mb-4">
+                    <div class="text-center">
+                        <h3 class="h5 strong-700 mb-4">Shop by categories</h3>
+                        <img src="{% static 'background_images/catImage.jpeg' %}" class="img-fluid mb-5 ls-is-cached lazyloaded">
+                    </div>
+                    {% if show_categories %}
+                    <ul class="list-unstyled">
+                        {% for cat in show_categories %}
+                        <li><a href="#" class="text-muted alpha-8 fs-16 mb-3 d-inline-block cat__title">{{ cat.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <a href="#" class="btn btn__styled btn-block">View All</a>
+                </div>
+            </div>
+            <div class="col-xxl-6 order-1 order-xxl-0">
+                <div class="row g-0 justify-content-center">
+                    {% for product in products %}
+                    <div class="col-xxl-4 col-xl-3 col-md-4 col-6">
+                        <div class="card product__card">
+                            <div class="product__img">
+                                <a href="#">
+                                    <img src="{{ product.img.url }}" alt="">
+                                </a>
+                                <div class="product__icons">
+                                    <div class="product__icon">
+                                        <span class="iconify" data-icon="bytesize:eye" data-inline="false"></span>
+                                    </div>
+                                    <div class="product__icon">
+                                        <span class="iconify" data-icon="bx:bx-cart" data-inline="false"></span>
+                                    </div>
+                                    <div class="product__icon">
+                                        <span class="iconify" data-icon="ant-design:heart-outlined" data-inline="false"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__info">
+                                <a href="#">
+                                    <small>{{ product.category.title }}</small>
+                                </a>
+                                <a href="#">
+                                    <p class="product__title">{{ product.title }}</p>
+                                </a>
+                                <p class="product__price">{{ product.market_price }}৳</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xxl-3 col-md-6 order-3 order-xxl-0 mt-3 mt-xxl-0">
+                <div class="card store__card px-4 py-5 mb-4">
+                    <div class="text-center">
+                        <h3 class="h5 strong-700 mb-4">Shop by Store</h3>
+                        <img src="{% static 'background_images/storeImage.jpeg' %}" class="img-fluid mb-5 ls-is-cached lazyloaded">
+                    </div>
+                    {% if shops %}
+                    <ul class="list-unstyled">
+                        {% for shop in shops %}
+                        <li><a href="#" class="text-muted alpha-8 fs-16 mb-3 d-inline-block store__title">{{ shop.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <a href="#" class="btn btn__styled btn-block">View All</a>
+                </div>
+            </div>
+        </div>
 
 
+    </div>
+    <!-- New arrival ends -->
 
+    <!-- Offer starts -->
+    <div class="offers">
+        {% if campaigns %}
+        <div class="campaign__offer">
+            <div class="offers__thumbnail">
+                <a href="#">
+                    <img src="{{ campaigns.img.url }}" alt="">
+                </a>
+            </div>
+        </div>
+        {% endif %} {% if offers %}
+        <div class="offer">
+            <div class="offers__thumbnail">
+                <a href="#">
+                    <img src="{{ offers.offer_img.url }}" alt="">
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Offer ends -->
 
+    <!-- Product by categories starts -->
+
+    <div class="product__byCategories my-5">
+        <div class="am-sec-title mb-4">
+            <h2 class="text-center border-bottom pb-4 h4">
+                <span class="base-border">Product By Categories</span>
+            </h2>
+        </div>
+
+        {% if categories %}
+        <div>
+            <ul class="product__categories">
+                <li class="card p-2 product__catCard">
+                    <button class="nav-link btn btn-danger cat__button activeProd" data-filter="all" aria-selected="false">All</button>
+                </li>
+                {% for cat in categories %}
+                <li class="card p-2 product__catCard">
+                    <button class="nav-link btn btn-danger cat__button" data-filter="{{ cat.id }}" aria-selected="false">{{ cat.title }}</button>
+                </li>
+                {% endfor %}
+            </ul>
+
+            {% if all_products %}
+            <div class="product__category">
+                {% for product in all_products %}
+                <div class="card itembox {{ product.category.id }}">
+                    <div class="product__thumbnail">
+                        <a href="#">
+                            <img src="{{ product.img.url }}" alt="">
+                        </a>
+                        <div class="product__icons">
+                            <div class="product__icon">
+                                <span class="iconify" data-icon="bytesize:eye" data-inline="false"></span>
+                            </div>
+                            <div class="product__icon">
+                                <span class="iconify" data-icon="bx:bx-cart" data-inline="false"></span>
+                            </div>
+                            <div class="product__icon">
+                                <span class="iconify" data-icon="ant-design:heart-outlined" data-inline="false"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__info">
+                        <a href="#">
+                            <small>{{ product.category.title }}</small>
+                        </a>
+                        <a href="#">
+                            <p class="product__title">{{ product.title }}</p>
+                        </a>
+                        <p class="product__price">{{ product.market_price }}৳</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center my-5">
+                <a href="#">
+                    <button class="view__allProduct">View All Products</button>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Product by categories ends -->
+
+    <!-- Hurry offer starts -->
+    <div class="hurry__offers">
+        <div class="am-sec-title mb-4">
+            <h2 class="text-center border-bottom pb-4 h4">
+                <span class="base-border">Hurry Up! Special Offers</span>
+            </h2>
+        </div>
+
+        {% if all_products %}
+        <div class="offered__products">
+            {% for product in all_products %} {% if product.sale_price %}
+            <div class="card offer__productCard">
+                <div class="offer__productThumbnails">
+                    <a href="#">
+                        <img src="{{ product.img.url }}" alt="">
+                    </a>
+                    <div class="product__icons">
+                        <div class="product__icon">
+                            <span class="iconify" data-icon="bytesize:eye" data-inline="false"></span>
+                        </div>
+                        <div class="product__icon">
+                            <span class="iconify" data-icon="bx:bx-cart" data-inline="false"></span>
+                        </div>
+                        <div class="product__icon">
+                            <span class="iconify" data-icon="ant-design:heart-outlined" data-inline="false"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product__info">
+                    <a href="#">
+                        <small>{{ product.category.title }}</small>
+                    </a>
+                    <a href="#">
+                        <p class="product__title">{{ product.title }}</p>
+                    </a>
+                    <p class="product__price">{{ product.market_price }}৳</p>
+                </div>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Hurry offer ends -->
+
+    <!-- All brands starts -->
+
+    {% if brands %}
+    <div class="brands my-5">
+        {% for brand in brands %}
+        <div class="brand__img">
+            <img src="{{ brand.img.url }}" alt="">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- All brands ends -->
+
+</div>
 {% endblock %}
